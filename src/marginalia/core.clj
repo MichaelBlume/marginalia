@@ -217,8 +217,8 @@
 
 (defn format-sources
   "Given a collection of filepaths, returns a lazy sequence of filepaths to all
-   files with valid file extensions on those paths: directory paths will be searched
-   recursively for files."
+   files with clojure source file extensions on those paths: directory paths
+   will be searched recursively for files."
   [sources]
   (if (nil? sources)
     (find-processable-file-paths "./src" file-extensions)
