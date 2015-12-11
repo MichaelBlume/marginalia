@@ -1,7 +1,13 @@
-Marginalia 0.8.0
+Marginalia 0.9.0
 ================
 
-**[Marginalia has a new home](http://blog.fogus.me/2013/08/12/marginalia-has-a-new-home/)**
+Fork
+----
+
+**Marginalia has a hopefully temporary newer home**.
+
+I'm posting a forked Marginalia 0.9.0 to Clojars in order to make it usable
+with Clojure 1.7.0.
 
 ![marginalia](http://farm8.staticflickr.com/7057/6828224448_32b51e5784_z_d.jpg "Marginalia")
 
@@ -20,13 +26,13 @@ Currently Marginalia can be used in a number of ways as described below.
 
 ### Leiningen
 
-[http://github.com/gdeer81/lein-marginalia](http://github.com/gdeer81/lein-marginalia)
+[http://github.com/MichaelBlume/lein-marginalia](http://github.com/MichaelBlume/lein-marginalia)
 
 To use Marginalia with Leiningen add the following code to the project's `project.clj` file:
 
-With Leiningen 1.x, add `[lein-marginalia "0.8.0"]` to your project.clj's `:dev-dependencies` argument of the `defproject` function, then run `lein deps`.
-With Leiningen 2.x, add `[[lein-marginalia "0.8.0"]]` to the `:plugins` entry in either your project.clj file or your `:user` profile.
-See the [lein-marginalia](http://github.com/gdeer81/lein-marginalia) page for more details.
+With Leiningen 1.x, add `[michaelblume/lein-marginalia "0.9.0"]` to your project.clj's `:dev-dependencies` argument of the `defproject` function, then run `lein deps`.
+With Leiningen 2.x, add `[[lein-marginalia "0.9.0"]]` to the `:plugins` entry in either your project.clj file or your `:user` profile.
+See the [lein-marginalia](http://github.com/MichaelBlume/lein-marginalia) page for more details.
 
 Once installed,  you can generate your complete source documentation with the command:
 
