@@ -50,6 +50,7 @@ Marginalia accepts options as described below:
   * -j --js      Additional javascript resources `<jsfile1>;<jsfile2>;...` (if not given will be taken from `project.clj`)
   * -m --multi   Generate each namespace documentation as a separate file
   * -e --exclude Exclude source file(s) from the document generation process `<file1>;<file2>;...` (if not given will be taken from `project.clj`)
+  * -i --comments-indentation Specify the number of spaces used for indentation in the comments.
 
 ### Maven
 

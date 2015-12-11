@@ -256,7 +256,7 @@
 
    If no source files are found, complain with a usage message."
   [args & [project]]
-  (let [[{:keys [dir file name version desc deps css js multi leiningen exclude]} files help]
+  (let [[{:keys [dir file name version desc deps css js multi leiningen exclude comments-indentation]} files help]
         (cli args
              ["-d" "--dir" "Directory into which the documentation will be written" :default "./docs"]
              ["-f" "--file" "File into which the documentation will be written" :default "uberdoc.html"]
@@ -272,7 +272,8 @@
              ["-m" "--multi" "Generate each namespace documentation as a separate file" :flag true]
              ["-l" "--leiningen" "Generate the documentation for a Leiningen project file."]
              ["-e" "--exclude" "Exclude source file(s) from the document generation process <file1>;<file2>;...
-                 If not given will be taken from project.clj"])
+                 If not given will be taken from project.clj"]
+             ["-i" "--comments-indentation" "Specify the number of spaces used for indentation in the comments."])
         sources (distinct (format-sources (seq files)))
         sources (if leiningen (cons leiningen sources) sources)]
     (if-not sources
@@ -288,6 +289,7 @@
                                     {:css (when css (.split css ";"))
                                      :javascript (when js (.split js ";"))
                                      :exclude (when exclude (.split exclude ";"))
+                                     :comments-indentation (when comments-indentation comments-indentation)
                                      :leiningen leiningen}
                                     (:marginalia project-clj))
               opts (merge-with choose

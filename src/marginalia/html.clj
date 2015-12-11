@@ -5,6 +5,7 @@
   (:import [com.petebevin.markdown MarkdownProcessor]))
 
 (def ^{:dynamic true} *resources* "./vendor/")
+(def ^{:dynamic true} *comments-indentation* 0)
 
 (defn css-rule [rule]
   (let [sels (reverse (rest (reverse rule)))
@@ -70,7 +71,7 @@
 
    ..."
   [s]
-  (.markdown mdp s))
+  (.markdown mdp (clojure.string/replace s (re-pattern (str "(\\n+)[\\s]{" *comments-indentation* "}")) "$1")))
 
 ;; As a result of docifying then grouping, you'll end up with a seq like this one:
 ;; <pre><code>[...
@@ -402,13 +403,16 @@
   "This generates a stand alone html file (think `lein uberjar`).
    It's probably the only var consumers will use."
   [project-metadata docs]
-  (page-template
-   project-metadata
-   (opt-resources-html project-metadata)
-   (header-html project-metadata)
-   (toc-html {:uberdoc? true} docs)
-   (map #(groups-html {:uberdoc? true} %) docs)
-   (floating-toc-html docs)))
+  (binding [*comments-indentation* (if (nil? (:comments-indentation (:marginalia project-metadata)))
+                                     0
+                                     (:comments-indentation (:marginalia project-metadata)))]
+    (page-template
+     project-metadata
+     (opt-resources-html project-metadata)
+     (header-html project-metadata)
+     (toc-html {:uberdoc? true} docs)   
+     (map #(groups-html {:uberdoc? true} %) docs)
+     (floating-toc-html docs))))
 
 (defn index-html
   [project-metadata docs]
@@ -422,11 +426,14 @@
 
 (defn single-page-html
   [project-metadata doc all-docs]
-  (page-template
-   project-metadata
-   (opt-resources-html project-metadata)
-   "" ;; no header
-   "" ;; no toc
-   (groups-html {:uberdoc? false} doc)
-   "" ;; no floating toc
-   ))
+  (binding [*comments-indentation* (if (nil? (:comments-indentation (:marginalia project-metadata)))
+                                     0
+                                     (:comments-indentation (:marginalia project-metadata)))]
+    (page-template
+     project-metadata
+     (opt-resources-html project-metadata)
+     "" ;; no header
+     "" ;; no toc
+     (groups-html {:uberdoc? false} doc)
+     "" ;; no floating toc
+     )))
